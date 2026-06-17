@@ -73,3 +73,5 @@ docker run --rm -v $(pwd)/config.ini:/usr/src/sagt-teams-notification/config.ini
 ```bash
 pytest --cov=app test/
 ```
+
+Please contact me if you have questions in my linkedin account https://www.linkedin.com/in/romualdebaoy/
