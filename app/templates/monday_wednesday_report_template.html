@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>OCZ Scheduled (M,W) Report</title>
+</head>
+<body>
+    <h1 style="color: #0078d4; margin-bottom: 10px; font-weight: 900; font-family: 'Segoe UI', Arial, sans-serif;">Security Audit Tickets Requiring Reply/Follow-Up</h1>
+    <br>
+    <p>Hi <strong>{{auditor}}</strong>, as of <strong>{{date}}</strong> you have <strong>{{total_tickets}}</strong> Security Audit Ticket(s)</p>
+    <p>that needs your attention, please have time to review the tickets. Thank you for your support.</p> 
+    <br>
+    <table style="border-collapse: collapse; width: 100%; margin-top: 15px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #000000;">
+        <thead>
+            <tr>
+                <th colspan="5" style="border: 1px solid #ddd; padding: 15px; text-align: center; font-weight: bold; color: #0078d4; background-color: #f8f9fa; font-size: 18px;">Security Audit Tickets Waiting CSDD Reply</th>
+            </tr>
+            <tr style="background-color: #f3f2f1; border-bottom: 2px solid #0078d4;">
+                <th style="border: 1px solid #ddd; padding: 12px; text-align: left; font-weight: bold; color: #323130; width: 10%;">Ticket</th>
+                <th style="border: 1px solid #ddd; padding: 12px; text-align: left; font-weight: bold; color: #323130; width: 15%;">Status</th>
+                <th style="border: 1px solid #ddd; padding: 12px; text-align: left; font-weight: bold; color: #323130; width: 20%;">Developer</th>
+                <th style="border: 1px solid #ddd; padding: 12px; text-align: left; font-weight: bold; color: #323130; width: 15%;">Comment Date</th>
+                <th style="border: 1px solid #ddd; padding: 12px; text-align: left; font-weight: bold; color: #323130; width: 40%;">Developer Comment</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{waiting_csdd_reply_rows}}
+        </tbody>
+    </table>
+    <br>
+    <p style="margin-top: 20px; font-size: 14px; color: #999795;">
+        <em>Don't reply to this message. This is an automated message.</em>
+    </p>
+</body>
+</html>

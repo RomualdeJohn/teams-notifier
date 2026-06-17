@@ -1,0 +1,64 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: sagt-teams-notification-cronjob
+  labels:
+    app: sagt-teams-notification
+spec:
+  schedule: "30 10 * * 1,3,5"
+  timeZone: "Asia/Tokyo"
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
+  concurrencyPolicy: Replace
+  jobTemplate:
+    spec:
+      backoffLimit: 0
+      activeDeadlineSeconds: 14400
+      parallelism: 1
+      completions: 1
+      template:
+        metadata:
+          labels:
+            app: sagt-teams-notification
+          annotations:
+            sidecar.istio.io/inject: "false"
+        spec:
+          restartPolicy: Never
+          automountServiceAccountToken: false
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+          containers:
+            - name: sagt-teams-notification-job
+              image: registry-jpe1.r-local.net/oss-operation-cronjobs/sagt-teams-notification:latest
+              imagePullPolicy: Always
+              command: ["/bin/sh", "-c", "python /usr/src/sagt-teams-notification/main.py"]
+              resources:
+                requests:
+                  cpu: "2"
+                  memory: 8Gi
+                limits:
+                  cpu: "4"
+                  memory: 16Gi
+              volumeMounts:
+                - name: config-volume
+                  mountPath: /usr/src/sagt-teams-notification/config.ini
+                  subPath: config.ini
+                - name: logs
+                  mountPath: /usr/src/sagt-teams-notification/logs
+              securityContext:
+                readOnlyRootFilesystem: true
+                allowPrivilegeEscalation: false
+                runAsNonRoot: true
+          volumes:
+            - name: config-volume
+              secret:
+                secretName: sagt-teams-notification-config
+                items:
+                  - key: config.ini
+                    path: config.ini
+            - name: logs
+              emptyDir: {}
+          imagePullSecrets:
+            - name: registry-bot
+            - name: harbor-bot
