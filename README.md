@@ -74,4 +74,8 @@ docker run --rm -v $(pwd)/config.ini:/usr/src/sagt-teams-notification/config.ini
 pytest --cov=app test/
 ```
 
+**Deployment:**
+
+The app is deployed as a Kubernetes `CronJob` that runs on a `30 10 * * 1,3,5` schedule (10:30 AM JST, Mon/Wed/Fri). The `config.ini` is mounted from a Kubernetes Secret, so no credentials are baked into the image.
+
 Please contact me if you have questions in my linkedin account https://www.linkedin.com/in/romualdebaoy/
